@@ -37,17 +37,17 @@ jobs:
       # Step 5: Terraform Init
       - name: Terraform Init
         run: |
-          cd terraform-repo
+          cd EC2_S3_Terraform
           terraform init
 
       # Step 6: Terraform Plan
       - name: Terraform Plan
         run: |
-          cd terraform-repo
+          cd EC2_S3_Terraform
           terraform plan
 
       # Step 7: Terraform Apply
       - name: Terraform Apply
         run: |
-          cd terraform-repo
+          cd EC2_S3_Terraform
           terraform apply -auto-approve
