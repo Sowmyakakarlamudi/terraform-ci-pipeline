@@ -33,20 +33,29 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      # Step 5: Terraform Init
+      # Step 5: Terraform Format Check (Validation Best Practice)
+      - name: Terraform Format Check
+        run: |
+          cd EC2_S3_Terraform
+          terraform fmt -check
+          
+      # Step 6: Terraform Init
       - name: Terraform Init
         run: |
           cd EC2_S3_Terraform
           terraform init
-
-      # Step 6: Terraform Plan
+      # Step 7: Terraform Validate
+      - name: Terraform Validate
+        run: |
+          cd EC2_S3_Terraform
+          terraform validate
+      # Step 8: Terraform Plan
       - name: Terraform Plan
         run: |
           cd EC2_S3_Terraform
           terraform plan
 
-      # Step 7: Terraform Apply
+      # Step 9: Terraform Apply
       - name: Terraform Apply
         run: |
           cd EC2_S3_Terraform
