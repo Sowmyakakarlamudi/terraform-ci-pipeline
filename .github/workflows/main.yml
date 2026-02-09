@@ -19,7 +19,7 @@ jobs:
       - name: Clone Terraform Repo
         run: |
           git clone https://${{ secrets.GIT_TOKEN }}@github.com/pavan-nagula/EC2_S3_Terraform.git
-          cd terraform-repo
+          cd EC2_S3_Terraform
           ls
 
       # Step 3: Setup Terraform
