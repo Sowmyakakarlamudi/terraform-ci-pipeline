@@ -1,0 +1,53 @@
+name: Terraform CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout THIS repo
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Step 2: Clone Terraform repo (mentor repo)
+      - name: Clone Terraform Repo
+        run: |
+          git clone https://github.com/pavan-nagula/EC2_S3_Terraform.git
+          cd terraform-repo
+          ls
+
+      # Step 3: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Step 4: Configure AWS Credentials
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Step 5: Terraform Init
+      - name: Terraform Init
+        run: |
+          cd terraform-repo
+          terraform init
+
+      # Step 6: Terraform Plan
+      - name: Terraform Plan
+        run: |
+          cd terraform-repo
+          terraform plan
+
+      # Step 7: Terraform Apply
+      - name: Terraform Apply
+        run: |
+          cd terraform-repo
+          terraform apply -auto-approve
