@@ -30,9 +30,8 @@ jobs:
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: arn:aws:iam::688349428118:role/GitHubActions-Terraform-Role
+          aws-region: us-east-1
       # Step 5: Terraform Format Check (Validation Best Practice)
       - name: Terraform Format Check
         run: |
